@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 
 const apiKey = '7a2a88dcfcb6ab8a79a2483118a48ade';
 
+class data {
+  var weatherData;
+  var airData;
+}
+
 class WeatherLoading extends StatefulWidget {
   @override
   _LoadingState createState() => _LoadingState();
@@ -18,10 +23,10 @@ class _LoadingState extends State<WeatherLoading> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLocation();
+
   }
 
-  void getLocation() async {
+  Future<data> getLocation() async {
     MyLocation myLocation = MyLocation();
     await myLocation.getMyCurrentLocation();
     latitude3 = myLocation.latitude2;
@@ -36,59 +41,42 @@ class _LoadingState extends State<WeatherLoading> {
             '?lat=$latitude3&lon=$longitude3&appid=$apiKey');
 
     var weatherData = await network.getJsonData();
-    print(weatherData);
-
     var airData = await network.getAirData();
-    print(airData);
 
-    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return WeatherScreen(
-    //     parseWeatherData: weatherData,
-    //     parseAirPollution: airData,
-    //   );
-    // }));
+    data wData = new data();
+    wData.weatherData = weatherData;
+    wData.airData = airData;
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>
-        WeatherScreen(
-          parseWeatherData: weatherData,
-          parseAirPollution: airData,
-        )
-    ));
+    return wData;
+
   }
 
-  // void fetchData() async{
-  //
-  //     var myJson = parsingData['weather'][0]['description'];
-  //     print(myJson);
-  //
-  //     var wind = parsingData['wind']['speed'];
-  //     print(wind);
-  //
-  //     var id =parsingData['id'];
-  //     print(id);
-  //   }else{
-  //     print(response.statusCode);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          // onPressed: null,
-          onPressed: (){
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => WeatherScreen())
-            // );
-          },
-          child: Text(
-            'Get my location',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: getLocation(),
+        initialData: new data(),
+        builder: (BuildContext context, AsyncSnapshot<data> data) {
+          if (data.data?.weatherData == null || data.data?.airData == null){
+            return Scaffold(
+              body: Center(
+                child: ElevatedButton(
+                  onPressed: (){
+                  },
+                  child: Text(
+                    '날씨 정보를 가져오는 중 입니다.',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            );
+          }else {
+            return new WeatherScreen(
+                parseWeatherData: data.data?.weatherData,
+                parseAirPollution: data.data?.airData
+            );
+          }
+        });
   }
 }

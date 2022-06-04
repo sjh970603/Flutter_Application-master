@@ -15,6 +15,7 @@ class ScoreboardListBuilder {
   final String? gameStartDate;
   final String? gameStartTime;
   final String? gameEndDate;
+  final String? gameEndTime;
   final String? gameRelayDateTime;
   final String? stadium;
   final String? state;
@@ -69,7 +70,7 @@ class ScoreboardListBuilder {
       this.tournamentGameText, this.gameInfo, this.reversedHomeAway,
       this.suspendedInfo, this.suspended,
       this.gameVideo, this.liveSnapshotUrl, this.canceled, this.startDateYear, this.startDateMonth, this.startDateDay,
-       this.startTimeHours, this.startTimeMinute);
+       this.startTimeHours, this.startTimeMinute, this.gameEndTime);
 
   ScoreboardListBuilder.fromjson(Map<String, dynamic> json)
       : homeTeamName = json["homeTeamName"],
@@ -89,6 +90,7 @@ class ScoreboardListBuilder {
         gameStartDate = json["gameStartDate"],
         gameStartTime = json["gameStartTime"],
         gameEndDate = json["gameEndDate"],
+        gameEndTime = json["gameEndTime"],
         gameRelayDateTime = json["gameRelayDateTime"],
         stadium = json["stadium"],
         state = json["state"],

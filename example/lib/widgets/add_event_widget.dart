@@ -102,7 +102,7 @@ class _AddEventWidgetState extends State<AddEventWidget> {
       _startTime =  DateTime.parse(startTime);
 
       final addTime = _startTime.add(const Duration(hours: 3));
-      final addEndTime = "$endDate ${addTime.hour}:${addTime.minute}";
+      final addEndTime = "$endDate ${DateFormat('HH:mm').format(addTime)}";
       final endTime = (widget.pushingData?.pushGameendTime == null)? addEndTime : "$endDate ${widget.pushingData?.pushGameendTime}";
       _endTime = DateTime.parse(endTime!);
 

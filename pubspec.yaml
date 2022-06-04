@@ -18,6 +18,7 @@ dependencies:
   flutterfire_ui: ^0.4.1+2
   html: ^0.15.0
   intl: ^0.17.0
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:

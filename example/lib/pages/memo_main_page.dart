@@ -38,8 +38,8 @@ class _MemoMainState extends State<MemoMain> {
             decoration: BoxDecoration(
                 gradient: LinearGradient(
               colors: [
-                Color.fromRGBO(102, 102, 153, 1),
-                Color.fromRGBO(110, 110, 140, 1),
+                Colors.orangeAccent,
+                Colors.orangeAccent,
               ],
               begin: Alignment.bottomLeft,
               end: Alignment.bottomRight,

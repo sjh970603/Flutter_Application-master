@@ -37,7 +37,7 @@ class CircularCell extends StatelessWidget {
     required this.date,
     this.events = const [],
     this.shouldHighlight = false,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor = Colors.orangeAccent,
     this.highlightedTitleColor = Constants.white,
     this.titleColor = Constants.black,
   }) : super(key: key);

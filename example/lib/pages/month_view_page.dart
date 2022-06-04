@@ -38,7 +38,7 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -51,7 +51,7 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color.fromRGBO(102, 102, 153, 1), Color.fromRGBO(110, 110, 140, 1),
+                  colors: [Colors.orangeAccent, Colors.orangeAccent,
                   ],
                   begin: Alignment.bottomLeft,
                   end: Alignment.bottomRight,
@@ -76,7 +76,7 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
               //TabBar style
               tabs: [
                 Tab(icon: Icon(Icons.calendar_month_outlined), text: 'Month',),
-                Tab(icon: Icon(Icons.access_time_outlined), text: 'Day',),
+                //Tab(icon: Icon(Icons.access_time_outlined), text: 'Day',),
                 Tab(icon: Icon(Icons.cloud), text: 'Weather',),
                 Tab(icon: Icon(Icons.add_chart), text: 'Matches',),
               ]),),
@@ -84,7 +84,7 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
         // ... 오후 1:30 2022-06-01 WeatherScreen 기능 추가
         body: TabBarView(children: [
           Center(child: MonthViewWidget()),
-          Center(child: DayViewWidget()),
+          //Center(child: DayViewWidget()),
           Center(child: WeatherLoading()),
           Center(child: scroll.ListViewPage())
         ],),

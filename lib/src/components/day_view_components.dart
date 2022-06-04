@@ -50,7 +50,7 @@ class RoundedEventTile extends StatelessWidget {
     this.description = "",
     this.borderRadius = BorderRadius.zero,
     this.totalEvents = 1,
-    this.backgroundColor = Colors.blue,
+    this.backgroundColor = Colors.orangeAccent,
     this.titleStyle,
     this.descriptionStyle,
   }) : super(key: key);
@@ -129,7 +129,7 @@ class DayPageHeader extends CalendarPageHeader {
   }) : super(
           key: key,
           date: date,
-          backgroundColor: const Color.fromRGBO(64, 50, 139, 1.0),
+          backgroundColor: const Color.fromRGBO(238, 154, 0, 0),
           iconColor: Colors.white,
           onNextDay: onNextDay,
           onPreviousDay: onPreviousDay,

@@ -320,7 +320,7 @@ class WeekViewState<T> extends State<WeekView<T>> {
         child:
         DecoratedBox(
           decoration: BoxDecoration(
-            color: Color.fromRGBO(64, 50, 139, 1), //background color week
+            color: Color.fromRGBO(238,154,0,0), //background color week
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

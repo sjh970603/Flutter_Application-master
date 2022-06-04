@@ -291,7 +291,7 @@ class DayViewState<T> extends State<DayView<T>> {
         width: _width,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Color.fromRGBO(64, 50, 139, 1), //background color day, time
+            color: Color.fromRGBO(238, 154, 0, 0), //background color day, time
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -9,6 +9,7 @@ import '../extension.dart';
 import '../model/event.dart';
 import '../widgets/day_view_widget.dart';
 import '../widgets/month_view_widget.dart';
+import '../widgets/user_page.dart';
 import '../widgets/week_view_widget.dart';
 import 'create_event_page.dart';
 import '../action_button.dart';
@@ -112,6 +113,15 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
               },
               icon: Icon(Icons.note),
               color: Colors.white,),
+            ActionButton(
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(builder: (context) => UserPage())
+                );
+              },
+              icon: Icon(Icons.update),
+              color: Colors.white,),  
           ],
         ),
       ),

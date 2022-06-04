@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:calendar_view/calendar_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:example/widgets/user_page.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fauth;
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:intl/intl.dart';
 
 import '../app_colors.dart';
 import '../constants.dart';
@@ -8,10 +14,9 @@ import '../extension.dart';
 import '../model/event.dart';
 import 'custom_button.dart';
 import 'date_time_selector.dart';
-
+import 'user.dart';
 class AddEventWidget extends StatefulWidget {
   final void Function(CalendarEventData<Event>)? onEventAdd;
-
   const AddEventWidget({
     Key? key,
     this.onEventAdd,
@@ -256,13 +261,35 @@ class _AddEventWidgetState extends State<AddEventWidget> {
               height: 15,
             ),
             CustomButton(
-              onTap: _createEvent,
+              onTap:(){
+                _createEvent();
+                final user = User(
+                  title: _title,
+                  startDate: _startDate,
+                  endDate: _endDate,
+                  startTime: _startTime,
+                  endTime: _endTime,
+                  description: _description,
+                );
+                _createUser(user);
+                
+              },
+              
               title: "완료",
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future _createUser(User user) async {
+    final docUser = FirebaseFirestore.instance.collection('${fauth.FirebaseAuth.instance.currentUser?.uid}').doc();
+    user.id = docUser.id;
+
+    final json = user.toJson();
+
+    await docUser.set(json);
   }
 
   void _createEvent() {
@@ -284,7 +311,7 @@ class _AddEventWidgetState extends State<AddEventWidget> {
     );
 
     widget.onEventAdd?.call(event);
-    _resetForm();
+   _resetForm();
   }
 
   void _resetForm() {

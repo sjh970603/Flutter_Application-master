@@ -18,7 +18,7 @@ class PushingData{
   String? pushGameendTime;
   String? desciption;
 
-  PushingData(this.pushawayTeamName,this.desciption,this.pushGameendday,this.pushGameendTime,this.pushGamestartday,this.pushGamestartTime,this.pushhomeTeamName);
+  PushingData(this.pushhomeTeamName, this.pushawayTeamName, this.pushGamestartday, this.pushGameendday, this.pushGamestartTime, this.pushGameendTime, this.desciption);
 }
 
 
@@ -47,19 +47,10 @@ Future<void> scroll() async {
     target.setStartTimeMinute(minutes!);
   }
 
-  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ListViewPage(),
-    );
-  }
-}
+
 
 class ListViewPage extends StatefulWidget {
   const ListViewPage({Key? key}) : super(key: key);
@@ -171,14 +162,14 @@ class _ListViewPageState extends State<ListViewPage> {
     scroll();
     double width = MediaQuery.of(context).size.width * 0.6;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          '경기 일정',
-          style: TextStyle(color: Colors.grey),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: const Text(
+      //     '경기 일정',
+      //     style: TextStyle(color: Colors.grey),
+      //   ),
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      // ),
       body: ListView.builder(
         itemCount: scoreboardList.length,
         itemBuilder: (context, index) {
@@ -261,7 +252,8 @@ class _ListViewPageState extends State<ListViewPage> {
                           flex: 1,
                           child: ElevatedButton(
                               onPressed: () async{
-                                final pushingData = PushingData(scoreboardList[index].homeTeamName,scoreboardList[index].awayTeamName,scoreboardList[index].gameStartDate,scoreboardList[index].gameEndDate,scoreboardList[index].gameStartTime,scoreboardList[index].gameStartTime,scoreboardList[index].categoryName);
+                                  final pushingData = PushingData(scoreboardList[index].homeTeamName,scoreboardList[index].awayTeamName,scoreboardList[index].gameStartDate,scoreboardList[index].gameEndDate,scoreboardList[index].gameStartTime,scoreboardList[index].gameStartTime,scoreboardList[index].categoryName);
+                                  print("pushingData = $pushingData");
                                 final result = await Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => CreateEventPage(pushingData: pushingData)),

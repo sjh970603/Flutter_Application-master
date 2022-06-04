@@ -9,7 +9,7 @@ Future<List<ScoreboardListBuilder>> main() async{
   List<ScoreboardListBuilder> scoreboardLists;
   ScoreboardListBuilder scoreboardList;
 
-  var url = "https://sports.news.naver.com/wbaseball/schedule/scoreboard?date=20220529&year=2022&month=05&category=mlb";
+  var url = "https://sports.news.naver.com/wbaseball/schedule/scoreboard?year=2022&month=06&category=mlb&date=20220606";
   var response = await http.get(Uri.parse(url));
   var res = utf8.decode(response.bodyBytes);
   var jsonBody = jsonDecode(res)['scoreboardList'];

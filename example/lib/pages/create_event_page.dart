@@ -17,6 +17,9 @@ class CreateEventPage extends StatefulWidget {
 
   @override
   _CreateEventPageState createState() => _CreateEventPageState();
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 class _CreateEventPageState extends State<CreateEventPage> {

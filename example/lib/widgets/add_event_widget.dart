@@ -12,14 +12,18 @@ import '../app_colors.dart';
 import '../constants.dart';
 import '../extension.dart';
 import '../model/event.dart';
+import '../scroll.dart';
 import 'custom_button.dart';
 import 'date_time_selector.dart';
 import 'user.dart';
 class AddEventWidget extends StatefulWidget {
   final void Function(CalendarEventData<Event>)? onEventAdd;
+  final PushingData? pushingData;
+
   const AddEventWidget({
     Key? key,
     this.onEventAdd,
+    this.pushingData
   }) : super(key: key);
 
   @override
@@ -83,6 +87,38 @@ class _AddEventWidgetState extends State<AddEventWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    late TextEditingController _titleController;
+    late TextEditingController _descriptionController;
+
+    if (widget.pushingData != null){
+      final startDate = widget.pushingData?.pushGamestartday;
+      _startDate = DateTime.parse(startDate!);
+
+      final endDate = (widget.pushingData?.pushGameendday == null)? startDate : widget.pushingData?.pushGameendday;
+      _endDate = DateTime.parse(endDate!);
+
+      final startTime = "$startDate ${widget.pushingData?.pushGamestartTime}";
+      _startTime =  DateTime.parse(startTime);
+
+      final addTime = _startTime.add(const Duration(hours: 3));
+      final addEndTime = "$endDate ${addTime.hour}:${addTime.minute}";
+      final endTime = (widget.pushingData?.pushGameendTime == null)? addEndTime : "$endDate ${widget.pushingData?.pushGameendTime}";
+      _endTime = DateTime.parse(endTime!);
+
+      _title = "${widget.pushingData?.pushhomeTeamName} vs ${widget.pushingData?.pushawayTeamName}";
+      _description = (widget.pushingData?.desciption)!;
+
+      _startDateController = TextEditingController(text: startDate);
+      _endDateController = TextEditingController(text: endDate);
+      _startTimeController = TextEditingController(text: startTime);
+      _endTimeController = TextEditingController(text: endTime);
+
+    }
+
+    _titleController = TextEditingController(text: _title);
+    _descriptionController = TextEditingController(text: _description);
+
     return Form(
       key: _form,
       child: SingleChildScrollView(
@@ -90,6 +126,7 @@ class _AddEventWidgetState extends State<AddEventWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
+              controller: _titleController,
               decoration: AppConstants.inputDecoration.copyWith(
                 labelText: "일정 제목",
               ),
@@ -130,7 +167,11 @@ class _AddEventWidgetState extends State<AddEventWidget> {
                       color: AppColors.black,
                       fontSize: 15.0,
                     ),
-                    onSave: (date) => _startDate = date,
+                    onSave: (date) {
+                      if (widget.pushingData == null) {
+                        _startDate = date;
+                      }
+                    },
                     type: DateTimeSelectionType.date,
                   ),
                 ),
@@ -152,7 +193,11 @@ class _AddEventWidgetState extends State<AddEventWidget> {
                       color: AppColors.black,
                       fontSize: 15.0,
                     ),
-                    onSave: (date) => _endDate = date,
+                    onSave: (date) {
+                      if (widget.pushingData == null) {
+                        _endDate = date;
+                      }
+                    },
                     type: DateTimeSelectionType.date,
                   ),
                 ),
@@ -175,7 +220,11 @@ class _AddEventWidgetState extends State<AddEventWidget> {
 
                       return null;
                     },
-                    onSave: (date) => _startTime = date,
+                    onSave: (date) {
+                      if (widget.pushingData == null) {
+                        _startTime = date;
+                      }
+                    } ,
                     textStyle: TextStyle(
                       fontFamily: 'Noto_Serif_KR',
                       color: AppColors.black,
@@ -197,7 +246,11 @@ class _AddEventWidgetState extends State<AddEventWidget> {
 
                       return null;
                     },
-                    onSave: (date) => _endTime = date,
+                    onSave: (date) {
+                      if (widget.pushingData == null) {
+                        _endTime = date;
+                      }
+                    },
                     textStyle: TextStyle(
                       fontFamily: 'Noto_Serif_KR',
                       color: AppColors.black,
@@ -212,6 +265,7 @@ class _AddEventWidgetState extends State<AddEventWidget> {
               height: 15,
             ),
             TextFormField(
+              controller: _descriptionController,
               focusNode: _descriptionNode,
               style: TextStyle(
                 fontFamily: 'Noto_Serif_KR',
@@ -272,9 +326,9 @@ class _AddEventWidgetState extends State<AddEventWidget> {
                   description: _description,
                 );
                 _createUser(user);
-                
+
               },
-              
+
               title: "완료",
             ),
           ],
@@ -311,7 +365,7 @@ class _AddEventWidgetState extends State<AddEventWidget> {
     );
 
     widget.onEventAdd?.call(event);
-   _resetForm();
+    _resetForm();
   }
 
   void _resetForm() {

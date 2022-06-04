@@ -7,8 +7,6 @@ import '../widgets/add_event_widget.dart';
 
 
 class CreateEventPage extends StatefulWidget {
-
-
   final bool withDuration;
   final PushingData? pushingData;
 
@@ -61,6 +59,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
         padding: EdgeInsets.all(20.0),
         child: AddEventWidget(
           onEventAdd: context.pop,
+          pushingData: widget.pushingData,
         ),
       ),
     );

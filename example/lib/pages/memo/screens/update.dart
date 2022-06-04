@@ -9,6 +9,7 @@ import './edit.dart';
 import './view.dart';
 import './../database/db.dart';
 import './../database/memo.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fauth;
 
 String deleteId = '';
 
@@ -44,7 +45,7 @@ class _MemoUpdate extends State<MemoUpdate> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           CircleAvatar(
-            child: Text('memomemo'[0]),
+            child: Text('${fauth.FirebaseAuth.instance.currentUser?.uid}'[0]),
           ),
         ],
       ),
@@ -82,7 +83,7 @@ class _MemoUpdate extends State<MemoUpdate> {
       ));
 
   Stream<List<User>> readUsers() => FirebaseFirestore.instance
-      .collection('memomemo')
+      .collection('${fauth.FirebaseAuth.instance.currentUser?.uid}')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
@@ -137,17 +138,17 @@ class User {
   });
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        'text': text,
-        'editTime': editTime,
+        'memo_id': id,
+        'memo_title': title,
+        'memo_text': text,
+        'memo_editTime': editTime,
       };
 
   static User fromJson(Map<String, dynamic> json) => User(
-        id: json['id'],
-        title: json['title'],
-        text: json['text'],
-        editTime: json['editTime'],
+        id: json['memo_id'],
+        title: json['memo_title'],
+        text: json['memo_text'],
+        editTime: json['memo_editTime'],
       );
 }
 

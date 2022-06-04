@@ -15,6 +15,7 @@ import './../screens/edit.dart';
 import './../screens/view.dart';
 import './../database/db.dart';
 import './../database/memo.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fauth;
 
 //적은 메모 보여주는 페이지
 
@@ -150,15 +151,15 @@ class _MemoEventState extends State<MemoEvent> {
             //메모 연동
             Future createUser({required String name}) async {
               final docUser = FirebaseFirestore.instance
-                  .collection('memomemo')
+                  .collection('${fauth.FirebaseAuth.instance.currentUser?.uid}')
                   .doc(memo.id);
 
               final json = {
-                'id': memo.id,
-                'title': memo.title,
-                'text': memo.text,
-                'createTime': memo.createTime,
-                'editTime': memo.editTime,
+                'memo_id': memo.id,
+                'memo_title': memo.title,
+                'memo_text': memo.text,
+                'memo_createTime': memo.createTime,
+                'memo_editTime': memo.editTime,
               };
 
               await docUser.set(json);
@@ -179,7 +180,7 @@ class _MemoEventState extends State<MemoEvent> {
                         onPressed: () {
                           Navigator.pop(context, "갱신");
                           setState(() {
-                            createUser(name: 'memomemo');
+                            createUser(name: '${fauth.FirebaseAuth.instance.currentUser?.uid}');
                           });
                         },
                       ),

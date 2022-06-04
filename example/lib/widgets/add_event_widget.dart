@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:calendar_view/calendar_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:example/widgets/user_page.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fauth;
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -12,10 +11,12 @@ import '../app_colors.dart';
 import '../constants.dart';
 import '../extension.dart';
 import '../model/event.dart';
+import '../pages/create_event_page.dart';
 import '../scroll.dart';
 import 'custom_button.dart';
 import 'date_time_selector.dart';
 import 'user.dart';
+
 class AddEventWidget extends StatefulWidget {
   final void Function(CalendarEventData<Event>)? onEventAdd;
   final PushingData? pushingData;
@@ -366,6 +367,12 @@ class _AddEventWidgetState extends State<AddEventWidget> {
 
     widget.onEventAdd?.call(event);
     _resetForm();
+
+    if (event == null) return;
+    CalendarControllerProvider
+        .of<Event>(context)
+        .controller
+        .add(event);
   }
 
   void _resetForm() {

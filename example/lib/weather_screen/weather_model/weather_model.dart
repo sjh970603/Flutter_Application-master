@@ -5,23 +5,23 @@ import 'package:flutter/material.dart';
 class WeatherModel {
   Widget? getWeatherIcon(int condition) {
     if (condition < 300) {
-      return SvgPicture.asset(
-        'image/climacon-colud_lightning.svg',
+      return Image.asset(
+        'image/climacon-colud_lightning.png',
         color: Colors.black87,
       );
     } else if (condition < 600) {
-      return SvgPicture.asset(
-        'image/climacon-cloud_rain.svg',
+      return Image.asset(
+        'image/climacon-cloud_rain.png',
         color: Colors.black87,
       );
     } else if (condition == 800) {
-      return SvgPicture.asset(
-        'image/climacon-sun.svg',
+      return Image.asset(
+        'image/climacon-sun.png',
         color: Colors.black87,
       );
     } else if (condition <= 804) {
-      return SvgPicture.asset(
-        'image/climacon-cloud_sun.svg',
+      return Image.asset(
+        'image/climacon-cloud_sun.png',
         color: Colors.black87,
       );
     }

@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../app_colors.dart';
 import '../extension.dart';
+import '../scroll.dart';
 import '../widgets/add_event_widget.dart';
 
-class CreateEventPage extends StatefulWidget {
-  final bool withDuration;
 
-  const CreateEventPage({Key? key, this.withDuration = false})
+class CreateEventPage extends StatefulWidget {
+
+
+  final bool withDuration;
+  final PushingData? pushingData;
+
+  const CreateEventPage({Key? key, this.withDuration = false, this.pushingData})
       : super(key: key);
 
   @override
@@ -40,7 +45,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
           ),
         ),
         title: Text(
-          "일정 추가",
+          '경기일정',
           style: TextStyle(
             fontFamily: 'Noto_Serif_KR',
             color: AppColors.black,

@@ -19,6 +19,7 @@ import 'remove_event_page.dart';
 import '../../login_app/login_refactor.dart';
 import '../weather_screen/weather_screen.dart';
 import '../scroll.dart' as scroll;
+import 'package:example/pages/remove_event_page.dart';
 
 
 class MonthViewPageDemo extends StatefulWidget {
@@ -100,7 +101,7 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
               color: Colors.white,
             ),
             ActionButton(
-              onPressed: (){}, //_removeEvent,
+              onPressed: _removeEvent, //_removeEvent,
               icon: Icon(Icons.delete),
               color: Colors.white,
             ),
@@ -141,4 +142,18 @@ class _MonthViewPageDemoState extends State<MonthViewPageDemo> {
         .controller
         .add(event);
   }
+  Future<void> _removeEvent() async {
+    final event = await context.pushRoute<CalendarEventData<Event>>(
+      RemoveEvent(),
+    );
+    if (event == null) return;
+    CalendarControllerProvider
+        .of<Event>(context)
+        .controller
+        .remove(event);
+  }
+
+
 }
+
+
